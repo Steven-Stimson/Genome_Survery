@@ -49,7 +49,7 @@ my $max_freq_depth = (grep {$spikes{$_} == $max_frequence}(keys %spikes))[0];
 my @count_spikes = grep {$_%$max_freq_depth <= 3 || $max_freq_depth%$_ <= 3}(keys %spikes);
 
 
-print "$id\nDepth\tEstimated Genome Size(Mb)\n";
+print ">$ID\nDepth\tEstimated Genome Size(Mb)\n";
 for my $spike_depth (sort { $a <=> $b } @count_spikes){
 	my $Est_Genomesize = int(($kmer_accumulator/$spike_depth)/1000000);
 	$Est_Genomesize =~ s/(?<=\d)(?=(\d{3})+$)/,/g;
