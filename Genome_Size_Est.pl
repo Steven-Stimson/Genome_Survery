@@ -46,8 +46,8 @@ my $max_freq_depth = (grep {$spikes{$_} == $max_frequence}(keys %spikes))[0];
 
 
 
-my @count_spikes = grep {$_%$max_freq_depth <= 3 || $max_freq_depth%$_ <= 3}(keys %spikes);
-
+#my @count_spikes = grep {$_%$max_freq_depth <= 3 || $max_freq_depth%$_ <= 3}(keys %spikes); # 仅计算主峰
+my @count_spikes = keys %spikes # 计算所有峰
 
 print ">$ID\nDepth\tEstimated Genome Size(Mb)\n";
 for my $spike_depth (sort { $a <=> $b } @count_spikes){
