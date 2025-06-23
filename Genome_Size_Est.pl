@@ -34,7 +34,7 @@ for my $i(1..scalar @info_array -2){
 	my $next_frequence = (split/\t/,$info_array[$i+1])[1];
 
 	#print "$last_frequence\t$current_frequence\t$next_frequence\n";
-	(($current_frequence > 100000) && ($current_frequence > $last_frequence) && ($current_frequence > $next_frequence)) || next;
+	(($current_frequence > 10000) && ($current_frequence > $last_frequence) && ($current_frequence > $next_frequence)) || next;
 	my($depth, $frequence) = split/\t/,$info_array[$i];
 	$spikes{$depth} = $frequence;
 }
@@ -47,7 +47,7 @@ my $max_freq_depth = (grep {$spikes{$_} == $max_frequence}(keys %spikes))[0];
 
 
 #my @count_spikes = grep {$_%$max_freq_depth <= 3 || $max_freq_depth%$_ <= 3}(keys %spikes); # 仅计算主峰
-my @count_spikes = keys %spikes # 计算所有峰
+my @count_spikes = keys %spikes; # 计算所有峰
 
 print ">$ID\nDepth\tEstimated Genome Size(Mb)\n";
 for my $spike_depth (sort { $a <=> $b } @count_spikes){
