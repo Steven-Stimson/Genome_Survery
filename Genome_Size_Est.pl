@@ -26,7 +26,7 @@ while(<IN>){
 close IN;
 
 
-
+# 判断kmer峰
 my(%spikes);
 for my $i(1..scalar @info_array -2){
 	my $last_frequence = (split/\t/,$info_array[$i-1])[1];
