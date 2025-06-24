@@ -46,14 +46,14 @@ my $max_freq_depth = (grep {$spikes{$_} == $max_frequence}(keys %spikes))[0];
 
 
 
-my @main_spikes = grep {$_%$max_freq_depth <= 3 || $max_freq_depth%$_ <= 3}(keys %spikes); # 仅主峰
+my @main_spikes = grep {$_%$max_freq_depth <= 3 || $max_freq_depth%$_ <= 3}(keys %spikes); # 主峰
 #my @count_spikes = keys %spikes; # 所有峰
 
 print ">$ID\nDepth\tEstimated Genome Size(Mb)\n";
 for my $spike_depth (sort { $a <=> $b } keys %spikes){
 	my $Est_Genomesize = int(($kmer_accumulator/$spike_depth)/1000000);
 	$Est_Genomesize =~ s/(?<=\d)(?=(\d{3})+$)/,/g;
- 	if(grep {$_ == $spike_depth}(@main_spikes)){
+ 	if(grep {$_ == $spike_depth}(@main_spikes)){ #主峰标记
 		print "<!>$spike_depth\t$Est_Genomesize\n";
   	}else{
    		print "$spike_depth\t$Est_Genomesize\n";
