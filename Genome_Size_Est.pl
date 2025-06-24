@@ -10,7 +10,7 @@ GetOptions(
 	"id:s"	=>	\$id
 );
 
-$error_depth||=5;
+$error_depth||=5; # 默认深度<5的kmer为测序错误产生
 
 
 
