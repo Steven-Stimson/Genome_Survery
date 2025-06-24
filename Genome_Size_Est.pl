@@ -42,11 +42,8 @@ for my $i(1..scalar @info_array -2){
 
 my $max_frequence = max(values %spikes);
 my $max_freq_depth = (grep {$spikes{$_} == $max_frequence}(keys %spikes))[0];
+my @main_spikes = grep {$_%$max_freq_depth <= 3 || $max_freq_depth%$_ <= 3}(keys %spikes); # 判断主峰
 
-
-
-
-my @main_spikes = grep {$_%$max_freq_depth <= 3 || $max_freq_depth%$_ <= 3}(keys %spikes); # 主峰
 #my @count_spikes = keys %spikes; # 所有峰
 
 print ">$ID\nDepth\tEstimated Genome Size(Mb)\n";
