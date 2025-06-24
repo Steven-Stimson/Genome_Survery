@@ -3,7 +3,7 @@ use strict;
 use warnings;
 use List::Util qw(max);
 use Getopt::Long;
-
+use File::Basename
 my($error_depth, $id);
 GetOptions(
 	"e:i"	=>	\$error_depth,
@@ -15,7 +15,7 @@ $error_depth||=5;
 
 
 my($kmer_accumulator,@info_array);
-open IN,shift;
+open IN, $ARGV[0];
 while(<IN>){
 	((/^(\d+)\s+\d+/) && ($1 > $error_depth)) || next;
 	(/^(\d+)\s+(\d+)/) && (my($depth, $frequence) = ($1, $2));
@@ -46,12 +46,16 @@ my @main_spikes = grep {$_%$max_freq_depth <= 3 || $max_freq_depth%$_ <= 3}(keys
 
 #my @count_spikes = keys %spikes; # 所有峰
 
-print ">$ID\nDepth\tEstimated Genome Size(Mb)\n";
+my $histo = basename($ARGV[0]);
+$histo =~ s/\.histo$//;
+$id ||= $histo; # 以输入文件前缀为ID
+print ">$id\nDepth\tEstimated Genome Size(Mb)\n"; # 输出表头
+
 for my $spike_depth (sort { $a <=> $b } keys %spikes){
 	my $Est_Genomesize = int(($kmer_accumulator/$spike_depth)/1000000);
 	$Est_Genomesize =~ s/(?<=\d)(?=(\d{3})+$)/,/g;
  	if(grep {$_ == $spike_depth}(@main_spikes)){
-		print "<!>$spike_depth\t$Est_Genomesize\n"; #主峰标记
+		print "<!>$spike_depth\t$Est_Genomesize\n"; #添加主峰标记 <!>
   	}else{
    		print "$spike_depth\t$Est_Genomesize\n";
 	}
