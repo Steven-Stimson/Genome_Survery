@@ -12,8 +12,6 @@ GetOptions(
 
 $error_depth||=5; # 默认深度<5的kmer为测序错误产生
 
-
-
 my($kmer_accumulator,@info_array);
 open IN, $ARGV[0];
 while(<IN>){
@@ -48,7 +46,7 @@ my @main_spikes = grep {$_%$max_freq_depth <= 3 || $max_freq_depth%$_ <= 3}(keys
 
 my $histo = basename($ARGV[0]);
 $histo =~ s/\.histo$//;
-$id ||= $histo; # 以输入文件前缀为ID
+$id ||= $histo; # 默认以输入文件前缀为ID
 print ">$id\nDepth\tEstimated Genome Size(Mb)\n"; # 输出表头
 
 for my $spike_depth (sort { $a <=> $b } keys %spikes){
