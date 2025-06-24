@@ -53,8 +53,8 @@ print ">$ID\nDepth\tEstimated Genome Size(Mb)\n";
 for my $spike_depth (sort { $a <=> $b } keys %spikes){
 	my $Est_Genomesize = int(($kmer_accumulator/$spike_depth)/1000000);
 	$Est_Genomesize =~ s/(?<=\d)(?=(\d{3})+$)/,/g;
- 	if(grep {$_ == $spike_depth}(@main_spikes)){ #主峰标记
-		print "<!>$spike_depth\t$Est_Genomesize\n";
+ 	if(grep {$_ == $spike_depth}(@main_spikes)){
+		print "<!>$spike_depth\t$Est_Genomesize\n"; #主峰标记
   	}else{
    		print "$spike_depth\t$Est_Genomesize\n";
 	}
